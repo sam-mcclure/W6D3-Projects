@@ -10,17 +10,14 @@ class FollowToggle {
       this.handleClick(e);
     });
     
-    console.log('End constructor')
+    console.log('End constructor');
     
     // .then(el) => console.log('YES'));
   }
   
   render() {
-    if (this.followState === 'Unfollowing'){
-      this.$el.text('Unfollowing...');
-    } else if (this.followState === 'Following'){
-      this.$el.text('Following...');
-    } else if (this.followState) {
+  
+    if (this.followState) {
       return this.$el.text('Unfollow!');
     } else {
       return this.$el.text('Follow!');
@@ -36,11 +33,11 @@ class FollowToggle {
     
          
     if (this.followState) {
-      APIUtil.unfollowUser(this.userId).then(() => changeFollowStatus());
-      this.followState = 'Unfollowing';
+      APIUtil.unfollowUser(this.userId).then(() => this.resolveFollowStatus());
+      
     } else {
-      APIUtil.followUser(this.userId).then(() => changeFollowStatus());
-      this.followState = 'Following';
+      APIUtil.followUser(this.userId).then(() => this.resolveFollowStatus());
+      
     }
   }
   
