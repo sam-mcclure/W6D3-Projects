@@ -108,6 +108,18 @@ const APIUtil = {
       url: `/users/${id}/follow`,
       dataType: 'JSON'    
     });
+  },
+  
+  searchUsers: (queryVal, success) => {
+    return $.ajax({
+      method: 'GET',
+      url: `/users/search`,
+      dataType: 'JSON',
+      data: {
+        queryVal: queryVal,
+        success: success
+      }
+    });
   }
 };
 
@@ -189,7 +201,7 @@ module.exports = FollowToggle;
 /***/ (function(module, exports, __webpack_require__) {
 
 const FollowToggle = __webpack_require__(/*! ./follow_toggle.js */ "./frontend/follow_toggle.js");
-
+const UsersSearch = __webpack_require__(/*! ./users_search.js */ "./frontend/users_search.js");
 $( () => {
   const $followToggles = $('.follow-toggle');
   $followToggles.each((index, el) => {
@@ -197,8 +209,51 @@ $( () => {
     const followToggle = new FollowToggle($el);
   });
   
+  const $usersSearch = $('.users-search');
+  const usersSearch = new UsersSearch($usersSearch);
+  
+  
   
 });
+
+/***/ }),
+
+/***/ "./frontend/users_search.js":
+/*!**********************************!*\
+  !*** ./frontend/users_search.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(/*! ./api_util.js */ "./frontend/api_util.js");
+
+class UsersSearch {
+  constructor($el){
+    this.el = $el;
+    this.$input = $($el.children('input')[0]);
+    this.ul = $el.children('ul')[0];
+    this.$input.on('keyup', e => {
+      this.handleInput(e);
+    });
+  }
+  
+  handleInput() {
+    APIUtil.searchUsers(this.$input.val()); //json 
+  }
+  
+  renderResults() {
+    //make li s on a ul 
+    
+    
+    
+    // append that ul (with a bunch li ) onto the page 
+    
+    
+  }
+}
+
+module.exports = UsersSearch;
+
 
 /***/ })
 

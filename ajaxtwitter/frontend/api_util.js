@@ -13,6 +13,18 @@ const APIUtil = {
       url: `/users/${id}/follow`,
       dataType: 'JSON'    
     });
+  },
+  
+  searchUsers: (queryVal, success) => {
+    return $.ajax({
+      method: 'GET',
+      url: `/users/search`,
+      dataType: 'JSON',
+      data: {
+        queryVal: queryVal,
+        success: success
+      }
+    });
   }
 };
 
